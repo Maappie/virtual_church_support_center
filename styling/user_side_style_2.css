@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#kumpil-request-button {
+  font-size: 20px;
+  padding: 3px 8px; /* Adjust the padding to make the button shorter */
+  background-color: #075e86; /* Green background color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+#kumpil-request-button:hover {
+  background-color: #003057; /* Darker green background color on hover */
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-image: url("../image/background.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+.formbold-mb-3 {
+  margin-bottom: 15px;
+}
+
+.header-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px 0;
+  background-color: rgb(107, 7, 107);
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.header a {
+  margin: 0;
+  color: white;
+  font-size: 20px;
+  font-weight: 100;
+  margin-left: 50px;
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-left: 284px;
+  position: relative;
+  top: 15px;
+  opacity: 0.7;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.Home-link:hover {
+  opacity: 1;
+}
+
+.Home-link:active {
+  opacity: 1;
+}
+
+.AU-link:hover {
+  opacity: 0.7;
+}
+
+.AU-link:active {
+  opacity: 1;
+}
+
+.LS-link:hover {
+  opacity: 0.7;
+}
+
+.LS-link:active {
+  opacity: 1;
+}
+
+.CU-link:hover {
+  opacity: 0.7;
+}
+
+.CU-link:active {
+  opacity: 1;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.online_pamisa {
+  font-size: 20px;
+}
+
+.online_pamisa h2 {
+  margin-bottom: 3px;
+  font-family: "Times New Roman", Times, serif, sans-serif;
+}
+
+.horizontal-line {
+  height: 3px;
+  background-color: gold;
+  width: 150px;
+  margin: 5px auto;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  background-color: rgb(107, 7, 107);
+  font-family: Arial, sans-serif;
+}
+
+.footer-container .title {
+  text-align: center;
+  max-width: 135px;
+  display: block;
+  overflow: hidden;
+  padding-top: 5px;
+}
+
+.footer-container img {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  overflow: hidden;
+}
+
+.social-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 2px;
+  margin-left: 5px;
+}
+
+.social-container .youtube:hover {
+  color: red;
+}
+
+.social-container .youtube:active {
+  color: red;
+  opacity: 0.5;
+}
+
+.social-container .twitter:hover {
+  color: black;
+}
+
+.social-container .twitter:active {
+  color: black;
+  opacity: 0.5;
+}
+
+.social-container .facebook:hover {
+  color: blue;
+}
+
+.social-container .facebook:active {
+  color: blue;
+  opacity: 0.5;
+}
+
+.formbold-main-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px;
+}
+
+.formbold-form-wrapper {
+  margin: 0 auto;
+  max-width: 1000px;
+  width: 100%;
+  background: white;
+  padding: 10px;
+}
+
+.form-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Added bottom margin */
+  margin-bottom: 20px; /* Added bottom margin */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"],
+button[type="button"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #45a049;
+}
+
+button[type="submit"]:disabled,
+button[type="button"]:disabled {
+  background-color: #dddddd;
+  cursor: not-allowed;
+}
+
+button[type="submit"]:disabled:hover,
+button[type="button"]:disabled:hover {
+  background-color: #dddddd;
+}
+
+.logout-button {
+  margin-top: 20px;
+  background-color: #f44336; /* Red background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Add some padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.logout-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
