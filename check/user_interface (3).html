@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="user_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>User</title>
+</head>
+<body>  
+<div class="header-container">
+    <div class="header">
+        <a href="index.php">National Shrine and Parish of Saint Michael and the Archangels</a>
+    </div>
+    <nav class="nav">
+        <a href="user_interface.php" class="Home-link">Home</a>
+        <a href="navbar/Aboutus.html" class="AU-link">About Us</a>
+        <a href="navbar/Liturgical.html" class="LS-link">Liturgical Services</a>
+    </nav>
+    
+     <!-- Logout button -->
+     <div class="logout-container">
+        <form action="functions/logout.php" method="post">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
+
+    <div class="check-history">
+        <button id="checkHistoryButton" class="logout-button">Check History</button>
+      </div>
+    </div>
+
+    <div class="online-pamisa-container">
+        <button id="online-pamisa-button" type="button" onclick="location.href='user_interface_2.php';">Request for Online Pamisa</button>
+    </div>
+</div>
+
+<main class="main">
+    <section class="left-section">
+        <h2>Welcome</h2>
+        <p>Requirements:</p>
+        <ul>
+            <li>Recently issued two (2) copies of Baptismal Certificates within six (6) months</li>
+            <li>First communion done</li>
+            <li>Fully accomplished registration form</li>
+            <li>Send love offering via Gcash</li>
+        </ul>
+        <p>FOR AGES 12-21 YEARS OLD WHO ARE NOT RESIDING IN THE PHILIPPINES ADDITIONAL:</p>
+        <ul>
+            <li>Permission letter from the current parish priest</li>
+            <li>Certificate of attendance for catechism</li>
+            <li>Baptismal certificate with annotation for confession</li>
+        </ul>
+    </section>
+
+    <section class="form-section">
+        <div class="confirmation">
+            <h2>Confirmation Request Form</h2>
+            <hr>
+        </div>
+
+        <!-- Form for additional data -->
+        <form id="userDataForm" action="user_data/process_data.php" method="post" class="data-form">
+            <div class="form-group">
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required min="0">
+            </div>
+            <div class="form-group">
+                <label for="contact_number">Contact Number:</label>
+                <input type="tel" id="contact_number" name="contact_number" pattern="[0-9]{11}" required>
+                <small>Enter an 11-digit phone number</small>
+            </div>
+            <div class="form-group">
+                <label for="sponsor_name">Sponsor's Full Name:</label>
+                <input type="text" id="sponsor_name" name="sponsor_name" placeholder="1st sponsor's name (required)" required>
+            </div>
+            <div class="form-group">
+                <label for="second_sponsor_name">Second Sponsor's Full Name:</label>
+                <input type="text" id="second_sponsor_name" name="second_sponsor_name" placeholder="2nd sponsor's name (optional)">
+            </div>
+            <div class="form-group">
+                <label for="father_name">Father's Name:</label>
+                <input type="text" id="father_name" name="father_name" placeholder="Your father's name" required>
+            </div>
+            <div class="form-group">
+                <label for="mother_maiden_name">Mother's Maiden Name:</label>
+                <input type="text" id="mother_maiden_name" name="mother_maiden_name" placeholder="Your mother's name" required>
+            </div>
+            <div class="form-group">
+                <label for="purpose">Purpose of Request:</label>
+                <select id="purpose" name="purpose" required>
+                    <option value="">Select Purpose</option>
+                    <option value="confirmation_purpose">Confirmation Purpose</option>
+                    <option value="marriage_purpose">Marriage Purpose</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="chosen_date">Choose a Date (Sunday):</label>
+                <input type="date" id="chosen_date" name="chosen_date" required>
+            </div>
+        </form>
+
+        <!-- Image for QR code -->
+        <img src="image/qr_code.jpg" alt="QR Code for Payment" class="date-image">
+
+        <!-- Receipt upload -->
+        <form id="receiptForm" action="user_data/g-cash_receipt.php" method="post" enctype="multipart/form-data" class="receipt-form">
+            <div class="form-group">
+                <label for="receipt">Upload Gcash Receipt (Required) 09772409731:</label>
+                <input type="file" id="receipt" name="receipt" accept=".png, .jpg, .jpeg" required>
+            </div>
+        </form>
+        <button id="submitButton" type="button" onclick="submitForms()" disabled class="submit-button">Submit</button>
+            <br>
+        <!-- Button to submit both forms -->
+        
+
+        
+    </section>
+</main>
+
+<div class="footer-container">
+    <a href="website.html" class="title">The National Shrine of Saint Michael and the Archangels</a>
+    <a href="website.html">
+        <img src="image/logo.jpg">
+    </a>
+    <div class="social-container">
+        <a href="https://www.youtube.com/@nationalshrineofst.michael3316" class="youtube">
+            <i style="font-size:24px" class="fa">&#xf16a;</i>
+        </a>
+        <a href="#" class="twitter">
+            <i style="font-size:24px" class="fa">&#120143;</i>
+        </a>
+        <a href="https://www.facebook.com/sanmiguelnationalshrineofficial" class="facebook">
+            <i style="font-size:24px" class="fa">&#xf09a;</i>
+        </a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get today's date
+        var today = new Date();
+        
+        // Calculate the date after two days
+        var twoDaysLater = new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000);
+        
+        // Calculate the next Sunday after two days
+        var nextSunday = new Date(twoDaysLater);
+        nextSunday.setDate(twoDaysLater.getDate() + (7 - nextSunday.getDay()) % 7);
+
+        // Set the minimum date to be two days later
+        var minDate = twoDaysLater.toISOString().split("T")[0];
+        document.getElementById("chosen_date").min = minDate;
+
+        // Function to check if a given date is Sunday
+        function isSunday(date) {
+            return date.getDay() === 0; // 0 represents Sunday
+        }
+
+        // Function to set the selected date to the next Sunday
+        function setToNextSunday(input) {
+            var selectedDate = new Date(input.value);
+            // Check if the selected date is Sunday, if not, set it to the next Sunday
+            if (!isSunday(selectedDate)) {
+                selectedDate.setDate(selectedDate.getDate() + (7 - selectedDate.getDay()) % 7);
+                input.value = selectedDate.toISOString().split("T")[0];
+            }
+        }
+
+        // Add event listener to the chosen_date input to enforce Sunday selection
+        document.getElementById("chosen_date").addEventListener("change", function () {
+            setToNextSunday(this);
+            checkFormValidity(); // Validate form on date change
+        });
+
+        // Set the initial value of the chosen date input to the next Sunday
+        document.getElementById("chosen_date").value = nextSunday.toISOString().split("T")[0];
+
+        // Add event listener to the receipt input to validate form
+        document.getElementById("receipt").addEventListener("change", checkFormValidity);
+
+        // Add event listener to the user data form to validate form
+        document.getElementById("userDataForm").addEventListener("input", checkFormValidity);
+
+        // Disable submit button if no chosen date or no receipt file selected
+        function checkFormValidity() {
+            var chosenDate = document.getElementById("chosen_date").value;
+            var receiptFile = document.getElementById("receipt").files[0];
+            var submitButton = document.getElementById("submitButton");
+            var dateInput = document.getElementById('chosen_date');
+            var currentDate = new Date(chosenDate);
+
+            if (!chosenDate || !receiptFile || !document.getElementById("userDataForm").checkValidity() || !isSunday(currentDate)) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+
+            // Update input style based on selected day being Sunday or not
+            if (currentDate && !isSunday(currentDate)) {
+                dateInput.classList.remove("sunday");
+            } else {
+                dateInput.classList.add("sunday");
+            }
+        }
+
+        // Function to submit forms
+        function submitForms() {
+            var chosenDate = document.getElementById("chosen_date").value;
+            var receiptFile = document.getElementById("receipt").files[0];
+            var currentDate = new Date(chosenDate);
+
+            if (chosenDate && receiptFile && isSunday(currentDate)) {
+                // Proceed with form submission
+                var userDataForm = document.getElementById("userDataForm");
+                var receiptForm = document.getElementById("receiptForm");
+
+                // Submit receipt form first using AJAX
+                var xhr2 = new XMLHttpRequest();
+                xhr2.open("POST", receiptForm.action, true);
+                xhr2.onreadystatechange = function () {
+                    if (xhr2.readyState == 4 && xhr2.status == 200) {
+                        // Receipt form submitted successfully, now submit user data form
+                        var xhr1 = new XMLHttpRequest();
+                        xhr1.open("POST", userDataForm.action, true);
+                        xhr1.onreadystatechange = function () {
+                            if (xhr1.readyState == 4 && xhr1.status == 200) {
+                                // Both forms submitted successfully
+                                alert("Both forms submitted successfully.");
+                                // Redirect to end_session.php
+                                window.location.href = "user_data/end_session.php";
+                            }
+                        };
+                        var formData1 = new FormData(userDataForm);
+                        xhr1.send(formData1);
+                    }
+                };
+                var formData2 = new FormData(receiptForm);
+                xhr2.send(formData2);
+
+            } else {
+                alert("Please choose a Sunday date and select a receipt file.");
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
+

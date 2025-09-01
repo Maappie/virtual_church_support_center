@@ -1,0 +1,239 @@
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-image: url("background for everything.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.logout-container {
+    position: absolute;
+    top: 115px; /* Adjust top position */
+    right: 10px; /* Adjust right position */
+  }
+  
+  .logout-button {
+    background-color: #329bad; /* Blue background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Add some padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+  
+  .logout-button:hover {
+    background-color: #307ebe; /* Darker blue on hover */
+  }
+
+  .logout-button:hover {
+    background-color: #307ebe;
+  }
+  
+
+.header-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    background-color: rgb(107, 7, 107);
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+  }
+  
+  .header a {
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    margin-left: 50px;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    margin-left: 284px;
+    position: relative;
+    top: 15px;
+    opacity: 0.7;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  
+  .Home-link:hover {
+    opacity: 1;
+  }
+  
+  .Home-link:active {
+    opacity: 1;
+  }
+  
+  .AU-link:hover {
+    opacity: 0.7;
+  }
+  
+  .AU-link:active {
+    opacity: 1;
+  }
+  
+  .LS-link:hover {
+    opacity: 0.7;
+  }
+  
+  .LS-link:active {
+    opacity: 1;
+  }
+  
+  .CU-link:hover {
+    opacity: 0.7;
+  }
+  
+  .CU-link:active {
+    opacity: 1;
+  }
+  
+h2 {
+    margin-top: 55px;
+    text-align: center;
+    color: #ffffff; /* Black text color */
+    font-family: "Times New Roman", Times, serif; /* Adjusted font stack */
+    position: relative; /* Establishes the positioning context */
+    display: inline-block; /* Ensures the background only covers the text */
+    padding: 10px 20px; /* Add padding for better readability */
+}
+
+.back-button {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.back-button button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button button:hover {
+    background-color: #45a049;
+}
+
+main {
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+img {
+    max-width: 100px;
+    height: auto;
+}
+
+.no-data {
+    text-align: center;
+    color: #777;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    background-color: rgb(107, 7, 107);
+    font-family: Arial, sans-serif;
+    margin-top: auto;
+    width: 100%;
+  }
+  
+  .footer-container .title {
+    text-align: center;
+    max-width: 135px;
+    display: block;
+    overflow: hidden;
+    padding-top: 5px;
+    height:65px
+  }
+  
+  .footer-container img {
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    overflow: hidden;
+  }
+
+  .social-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 50px;
+    height: 15px;
+    margin-left: 5px;
+  }
+  
+  .social-container .youtube:hover {
+    color: red;
+  }
+  
+  .social-container .youtube:active {
+    color: red;
+    opacity: 0.5;
+  }
+  
+  .social-container .twitter:hover {
+    color: black;
+  }
+  
+  .social-container .twitter:active {
+    color: black;
+    opacity: 0.5;
+  }
+  
+  .social-container .facebook:hover {
+    color: blue;
+  }
+  
+  .social-container .facebook:active {
+    color: blue;
+    opacity: 0.5;
+  }

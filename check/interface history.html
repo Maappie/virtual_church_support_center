@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style_ng_user_request_history.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>User Request History</title>
+  </head>
+  <body>
+    <div class="header-container">
+      <div class="header">
+        <a href="index.php"
+          >National Shrine and Parish of Saint Michael and the Archangels</a
+        >
+      </div>
+      <nav class="nav">
+        <a href="user_interface.php" class="Home-link">Home</a>
+        <a href="navbar/Aboutus.html" class="AU-link">About Us</a>
+        <a href="navbar/Liturgical.html" class="LS-link">Liturgical Services</a>
+      </nav>
+    </div>
+
+    <!-- Logout button -->
+    <div class="logout-container">
+      <form action="functions/logout.php" method="post">
+        <button type="submit" class="logout-button">Logout</button>
+      </form>
+    </div>
+
+    <h2>Your Request History</h2>
+
+    <main>
+      <?php if (!empty($historyData)) : ?>
+      <table>
+        <thead>
+          <tr>
+            <th>User Full Name</th>
+            <th>Purpose</th>
+            <th>Sponsor</th>
+            <th>Date of Service</th>
+            <th>Receipt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($historyData as $row) : ?>
+          <?php if (!empty($row['user_full_name'])) : ?>
+          <tr>
+            <td><?php echo htmlspecialchars($row['user_full_name']); ?></td>
+            <td><?php echo htmlspecialchars($row['purpose']); ?></td>
+            <td><?php echo htmlspecialchars($row['sponsor']); ?></td>
+            <td><?php echo htmlspecialchars($row['date_of_service']); ?></td>
+            <td>
+              <?php 
+                                $receiptPath = 'g_cash_receipts/' . htmlspecialchars($row['receipt_code']) . '_' . htmlspecialchars($row['receipt']);
+                                if (file_exists($receiptPath)) {
+                                    echo '<img src="' . $receiptPath . '" alt="Receipt">';
+              } else { echo 'Receipt not available'; } ?>
+            </td>
+          </tr>
+          <?php endif; ?>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+      <?php else : ?>
+      <p class="no-data">No request history found.</p>
+      <?php endif; ?>
+
+      <form action="user_interface_2.php" method="get" class="back-button">
+        <button type="submit">Back to Requests</button>
+      </form>
+    </main>
+
+    <div class="footer-container">
+      <a href="website.html" class="title"
+        >The National Shrine of Saint Michael and the Archangels</a
+      >
+      <a href="website.html">
+        <img src="image/logo.jpg" />
+      </a>
+      <div class="social-container">
+        <a
+          href="https://www.youtube.com/@nationalshrineofst.michael3316"
+          class="youtube"
+        >
+          <i style="font-size: 24px" class="fa">&#xf16a;</i>
+        </a>
+        <a href="#" class="twitter">
+          <i style="font-size: 24px" class="fa">&#120143;</i>
+        </a>
+        <a
+          href="https://www.facebook.com/sanmiguelnationalshrineofficial"
+          class="facebook"
+        >
+          <i style="font-size: 24px" class="fa">&#xf09a;</i>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styling/user_history_style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>User Request History</title>
+  </head>
+  <body>
+    <div class="header-container">
+      <div class="header">
+        <a href="index.php"
+          >National Shrine and Parish of Saint Michael and the Archangels</a
+        >
+      </div>
+      <nav class="nav">
+        <a href="user_interface.php" class="Home-link">Home</a>
+        <a href="navbar/Aboutus.html" class="AU-link">About Us</a>
+        <a href="navbar/Liturgical.html" class="LS-link">Liturgical Services</a>
+      </nav>
+    </div>
+
+    <!-- Logout button -->
+    <div class="logout-container">
+      <form action="functions/logout.php" method="post">
+        <button type="submit" class="logout-button">Logout</button>
+      </form>
+    </div>
+
+    <h2>Your Request History</h2>
+
+    <main>
+      <?php if (!empty($historyData)) : ?>
+      <table>
+        <thead>
+          <tr>
+            <th>User Full Name</th>
+            <th>Purpose</th>
+            <th>Sponsor</th>
+            <th>Date of Service</th>
+            <th>Receipt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($historyData as $row) : ?>
+          <?php if (!empty($row['user_full_name'])) : ?>
+          <tr>
+            <td>
+              <?php echo htmlspecialchars($row['user_full_name_pamisa']); ?>
+            </td>
+            <td><?php echo htmlspecialchars($row['purpose_for_pamisa']); ?></td>
+            <td><?php echo htmlspecialchars($row['sponsor_pamisa']); ?></td>
+            <td><?php echo htmlspecialchars($row['date_column_pamisa']); ?></td>
+            <td>
+              <?php 
+                                $receiptPath = 'g_cash_receipts/' . htmlspecialchars($row['receipt_code']) . '_' . htmlspecialchars($row['receipt']);
+                                if (file_exists($receiptPath)) {
+                                    echo '<img src="' . $receiptPath . '" alt="Receipt">';
+              } else { echo 'Receipt not available'; } ?>
+            </td>
+          </tr>
+          <?php endif; ?>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+      <?php else : ?>
+      <p class="no-data">No request history found.</p>
+      <?php endif; ?>
+
+      <form action="user_interface_2.php" method="get" class="back-button">
+        <button type="submit">Back to Requests</button>
+      </form>
+    </main>
+
+    <div class="footer-container">
+      <a href="website.html" class="title"
+        >The National Shrine of Saint Michael and the Archangels</a
+      >
+      <a href="website.html">
+        <img src="image/logo.jpg" />
+      </a>
+      <div class="social-container">
+        <a
+          href="https://www.youtube.com/@nationalshrineofst.michael3316"
+          class="youtube"
+        >
+          <i style="font-size: 24px" class="fa">&#xf16a;</i>
+        </a>
+        <a href="#" class="twitter">
+          <i style="font-size: 24px" class="fa">&#120143;</i>
+        </a>
+        <a
+          href="https://www.facebook.com/sanmiguelnationalshrineofficial"
+          class="facebook"
+        >
+          <i style="font-size: 24px" class="fa">&#xf09a;</i>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

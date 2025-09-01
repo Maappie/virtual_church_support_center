@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User online pamisa</title>
+    <link rel="stylesheet" href="user_side_style_2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="header-container">
+    <div class="header">
+        <a href="index.php">National Shrine and Parish of Saint Michael and the Archangels</a>
+    </div>
+    <nav class="nav">
+        <a href="index.php" class="Home-link">Home</a>
+        <a href="navbar/Aboutus.html" class="AU-link">About Us</a>
+        <a href="navbar/Liturgical.html" class="LS-link">Liturgical Services</a>
+    </nav>
+
+    <!-- Logout button -->
+    <div class="logout-container">
+        <form action="functions/logout.php" method="post">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="check-history">
+    <button id="checkHistoryButton" class="logout-button">Check History</button>
+    <form action="user_interface_history_2.php" method="get">
+    </form>
+  </div>
+
+  <div class="confirmation-container">
+    <button id="confirmation-button" type="button" onclick="location.href='user_interface_2.php';">Request for Confirmation</button>
+</div>
+
+<main>
+    <section class="welcome-section">
+        <section class="left-section">
+            <h2>Welcome</h2>
+            <p>Requirements:</p>
+            <ul>
+                Send love offering via Gcash
+            </ul>
+        </section>
+    </section>
+
+    <section class="form-section">
+        <div class="online_pamisa">
+            <h2>Online Pamisa Request Form</h2>
+            <hr>
+        </div>
+
+        <!-- Combined form -->
+        <form id="userDataForm" action="user_data/process_data_2.php" method="post" enctype="multipart/form-data" class="data-form">
+            <div class="form-group">
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="reason">For what reason:</label>
+                <select id="reason" name="reason" required>
+                    <option value="">Select Reason</option>
+                    <option value="Thanksgiving">Thanksgiving</option>
+                    <option value="Special Intentions">Special Intentions</option>
+                    <option value="Souls">Souls</option>
+                </select>
+            </div>
+            <div class="form-group" id="beneficiaryFields">
+                <label for="sponsor_name">Primary Beneficiary Full Name:</label>
+                <input type="text" id="sponsor_name" name="sponsor_name" placeholder="1st sponsor's name (required)" required>
+            </div>
+            <div class="form-group">
+                <label for="chosen_date">Choose a Date:</label>
+                <input type="date" id="chosen_date" name="chosen_date" required>
+            </div>
+            
+            <!-- Add the image after the date input -->
+            <img src="image/qr_code.jpg" alt="Image Description" class="date-image">
+
+            <!-- Receipt upload -->
+            <div class="form-group">
+                <label for="receipt">Upload Gcash Receipt (Required) 09772409731:</label>
+                <input type="file" id="receipt" name="receipt" accept=".png, .jpg, .jpeg" required>
+            </div>
+
+            <!-- Submit button -->
+            <button id="submitButton" type="button" onclick="submitForms()" disabled class="submit-button">Submit</button>
+        </form>
+        
+    </section>
+</main>
+
+<div class="footer-container">
+    <a href="website.html" class="title">The National Shrine of Saint Michael and the Archangels</a>
+    <a href="website.html">
+        <img src="image/logo.jpg">
+    </a>
+    <div class="social-container">
+        <a href="https://www.youtube.com/@nationalshrineofst.michael3316" class="youtube">
+            <i style="font-size:24px" class="fa">&#xf16a;</i>
+        </a>
+        <a href="#" class="twitter">
+            <i style="font-size:24px" class="fa">&#120143;</i>
+        </a>
+        <a href="https://www.facebook.com/sanmiguelnationalshrineofficial" class="facebook">
+            <i style="font-size:24px" class="fa">&#xf09a;</i>
+        </a>
+    </div>
+</div>
+
+<script>
+    function submitForms() {
+        var userDataForm = document.getElementById("userDataForm");
+        var receiptForm = document.getElementById("receiptForm");
+        var chosenDate = document.getElementById("chosen_date").value;
+        var receiptFile = document.getElementById("receipt").files[0];
+
+        // Check if chosen date and receipt file are selected
+        if (chosenDate && receiptFile) {
+            // Submit receipt form first using AJAX
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open("POST", receiptForm.action, true);
+            xhr2.onreadystatechange = function() {
+                if (xhr2.readyState == 4 && xhr2.status == 200) {
+                    // Receipt form submitted successfully, now submit user data form
+                    var xhr1 = new XMLHttpRequest();
+                    xhr1.open("POST", userDataForm.action, true);
+                    xhr1.onreadystatechange = function() {
+                        if (xhr1.readyState == 4 && xhr1.status == 200) {
+                            // Both forms submitted successfully
+                            alert("Both forms submitted successfully.");
+                            // Redirect to end_session.php
+                            window.location.href = "user_data/end_session.php";
+                        }
+                    };
+                    var formData1 = new FormData(userDataForm);
+                    xhr1.send(formData1);
+                }
+            };
+            var formData2 = new FormData(receiptForm);
+            xhr2.send(formData2);
+        } else {
+            alert("Please choose a date and select a receipt file.");
+        }
+    }
+
+    // Disable submit button if no chosen date or no receipt file selected
+    function checkFormValidity() {
+        var chosenDate = document.getElementById("chosen_date").value;
+        var receiptFile = document.getElementById("receipt").files[0];
+        var submitButton = document.getElementById("submitButton");
+
+        if (!chosenDate || !receiptFile || !document.getElementById("userDataForm").checkValidity()) {
+            submitButton.disabled = true;
+        } else {
+            submitButton.disabled = false;
+        }
+    }
+
+    // Call the function to check form validity when the page loads
+    checkFormValidity();
+
+    // Add event listeners to check form validity on input change
+    document.getElementById("chosen_date").addEventListener("change", checkFormValidity);
+    document.getElementById("receipt").addEventListener("change", checkFormValidity);
+    document.getElementById("userDataForm").addEventListener("input", checkFormValidity);
+
+    // Set minimum date for chosen_date input field
+    var philippinesTime = new Date();
+    var philippinesOffset = 8 * 60; // Philippines timezone offset (UTC+8)
+    var philippinesTimezone = philippinesTime.getTimezoneOffset();
+    var philippinesCurrentTime = new Date(philippinesTime.getTime() + (philippinesTimezone + philippinesOffset) * 60 * 1000);
+    philippinesCurrentTime.setDate(philippinesCurrentTime.getDate() + 2); // Add 2 days to the current date
+    var yyyy = philippinesCurrentTime.getFullYear();
+    var mm = String(philippinesCurrentTime.getMonth() + 1).padStart(2, '0'); // Add 1 to month since it is zero-based
+    var dd = String(philippinesCurrentTime.getDate()).padStart(2, '0');
+    var minDate = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("chosen_date").setAttribute("min", minDate);
+
+    document.getElementById("addBeneficiaryButton").addEventListener("click", function() {
+var beneficiaryFieldsContainer = document.getElementById("beneficiaryFields");
+
+// Create a new beneficiary name input field
+var newBeneficiaryField = document.createElement("div");
+newBeneficiaryField.classList.add("form-group");
+newBeneficiaryField.innerHTML = `
+    <label for="additional_sponsor_name">Additional Beneficiary's Full Name:</label>
+    <input type="text" name="additional_sponsor_name[]" placeholder="Additional sponsor's name">
+`;
+
+// Append the new beneficiary field to the container
+beneficiaryFieldsContainer.appendChild(newBeneficiaryField);
+});
+</script>
+</body>
+</html>
