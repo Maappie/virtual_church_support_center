@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In to Request</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="Login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="left-side">
+        <h1 class="title">
+          The National Shrine of Saint Michael and the Archangels
+        </h1>
+        <p class="signup">
+          Don't have an account yet?
+          <span><a href="signup.php" class="sign-up">Sign up</a></span> here.
+        </p>
+        <div class="button">
+          <button id="requestButton">Login to Request</button>
+        </div>
+      </div>
+      <div class="login-container">
+        <h2>Log In</h2>
+        <div class="form-element">
+          <p>as Admin</p>
+        </div>
+        <form
+          id="adminLoginForm"
+          action="functions/login_admin.php"
+          method="post"
+        >
+          <div class="input-group">
+            <label for="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              name="admin_email"
+              placeholder="Enter email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="admin_password"
+              placeholder="Enter password"
+              required
+            />
+            <span class="show"><i class="fa-solid fa-eye-slash"></i></span>
+          </div>
+          <button type="submit" id="adminLoginButton">Sign In</button>
+          <div class="form-element">
+            <a href="forgot_password_forAdmin.php">Forgot password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    document
+      .getElementById("requestButton")
+      .addEventListener("click", function () {
+        window.location.href = "LoginRequest.html";
+      });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var shows = document.querySelectorAll(".input-group .show");
+      shows.forEach(function (show) {
+        show.addEventListener("click", function () {
+          var input = this.previousElementSibling;
+          if (input.type === "password") {
+            input.type = "text";
+            this.innerHTML = '<i class="fa-solid fa-eye"></i>';
+          } else {
+            input.type = "password";
+            this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+          }
+        });
+      });
+
+      // Add event listener for admin login form submission
+      document
+        .getElementById("adminLoginForm")
+        .addEventListener("submit", function (event) {
+          // Prevent the default form submission
+          event.preventDefault();
+
+          // Get form data
+          var formData = new FormData(this);
+
+          // Create and send AJAX request
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "functions/login_admin.php", true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                if (xhr.responseText === "success") {
+                  // Redirect to admin panel or dashboard
+                  window.location.href = "admin_interface.php";
+                } else {
+                  // Display error message
+                  alert(xhr.responseText);
+                }
+              } else {
+                // Display error message for HTTP request
+                alert("Error: Unable to process your request.");
+              }
+            }
+          };
+          xhr.send(formData);
+        });
+    });
+  </script>
+</html>

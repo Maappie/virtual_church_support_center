@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In to Request</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="Login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="left-side">
+        <h1 class="title">
+          The National Shrine of Saint Michael and the Archangels
+        </h1>
+        <p class="signup">
+          Don't have an account yet?
+          <span><a href="signup.php" class="sign-up">Sign up</a></span> here.
+        </p>
+        <div class="button">
+          <button id="adminButton">Login as Admin</button>
+        </div>
+      </div>
+      <div class="login-container">
+        <h2>Log In</h2>
+        <div class="form-element">
+          <p>to Request</p>
+        </div>
+        <form id="loginForm" action="#" method="post">
+          <div class="input-group">
+            <label for="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              name="login_email"
+              placeholder="Enter email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="login_password"
+              placeholder="Enter password"
+              required
+            />
+            <span class="show"><i class="fa-solid fa-eye-slash"></i></span>
+          </div>
+          <button type="button" id="loginButton">Sign In</button>
+          <div class="form-element">
+            <a href="forgot_password_user.php">Forgot password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    document
+      .getElementById("adminButton")
+      .addEventListener("click", function () {
+        window.location.href = "LoginAdmin.html";
+      });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var shows = document.querySelectorAll(".input-group .show");
+      shows.forEach(function (show) {
+        show.addEventListener("click", function () {
+          var input = this.previousElementSibling;
+          if (input.type === "password") {
+            input.type = "text";
+            this.innerHTML = '<i class="fa-solid fa-eye"></i>';
+          } else {
+            input.type = "password";
+            this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+          }
+        });
+      });
+
+      // Add event listener for login button
+      document
+        .getElementById("loginButton")
+        .addEventListener("click", function () {
+          // Get form data
+          var formData = new FormData(document.getElementById("loginForm"));
+
+          // Make AJAX request
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "functions/login_account.php", true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+              if (xhr.status == 200) {
+                // Response from server
+                alert(xhr.responseText);
+                if (xhr.responseText.trim() === "Login successful") {
+                  // Redirect after successful login
+                  window.location.href = "functions/choose_request.php";
+                }
+              } else {
+                // Error handling for AJAX request
+                alert("Error: Unable to process your request.");
+              }
+            }
+          };
+          xhr.send(formData);
+        });
+    });
+  </script>
+</html>
