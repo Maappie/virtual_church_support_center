@@ -1,0 +1,77 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.7) url("../image/bgimage.jpg");
+  background-size: cover;
+  background-blend-mode: darken;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.verification-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left;
+}
+
+.verification-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.verification-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.verification-container input[type="submit"] {
+  background: linear-gradient(150deg, #b621fe, #1fd1f9);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.verification-container input[type="submit"]:hover {
+  background: linear-gradient(-150deg, #b621fe, #1fd1f9);
+  opacity: 0.7;
+}
+
+.verification-container input[type="submit"]:active {
+  opacity: 0.5;
+}
+
+.cancel-button {
+  background: linear-gradient(150deg, #b621fe, #1fd1f9);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: block;
+  margin: 15px auto 0 auto; /* Center the button and add margin at the top */
+}
+
+.cancel-button:hover {
+  background: linear-gradient(-150deg, #b621fe, #1fd1f9);
+  opacity: 0.7;
+}
+
+.cancel-button:active {
+  opacity: 0.5;
+}
