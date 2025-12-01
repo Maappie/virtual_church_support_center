@@ -52,7 +52,7 @@ This project is built on the standard XAMPP stack.
 
 3.  **Database Configuration**
     * Create a new MySQL database named `church`.
-    * Import the provided database schema file (`database/vca_db.sql`) into the newly created database.
+    * Import the provided database schema file (`church.sql`) into the newly created database.
     * Update the database connection parameters (username, password, database name) in the main configuration file (`config.php` or similar) to match your local environment.
 
 4.  **Access the Platform**
