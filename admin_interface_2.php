@@ -29,7 +29,7 @@ if (!isset($_SESSION['admin_username'])) {
     </div>
 
     <div class="content-box">
-        <h1 class="welcome">Welcome, <?php echo $_SESSION['admin_username']; ?>!</h1>
+        <h1 class="welcome">Welcome, <?php echo $_SESSION['admin_username']; ?>! <br> Online Mass</h1>
 
         <!-- Display pending requests in a table -->
         <?php
@@ -68,7 +68,7 @@ if (!isset($_SESSION['admin_username'])) {
 
         } else {
             // If no pending requests found
-            echo "<p>No pending requests at the moment</p>";
+            echo "<p>No pending requests for online pamisa at the moment</p>";
         }
 
         // Close the connection

@@ -48,7 +48,7 @@
         </div>
        <div class="container">
         <div class="content-box">
-            <h1 class="welcome">Welcome, <?php echo $_SESSION['admin_username']; ?>!</h1>
+            <h1 class="welcome">Welcome, <?php echo $_SESSION['admin_username']; ?>! <br> Kumpil</h1>
 
             <!-- Display pending requests in a table -->
             <?php
