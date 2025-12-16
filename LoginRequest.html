@@ -55,7 +55,11 @@
             />
             <span class="show"><i class="fa-solid fa-eye-slash"></i></span>
           </div>
+          
           <button type="button" id="loginButton">Sign In</button>
+          
+          <div id="messageBox" style="margin-top: 10px; text-align: center; font-weight: bold; min-height: 20px;"></div>
+
           <div class="form-element">
             <a href="forgot_password_user.php">Forgot password?</a>
           </div>
@@ -92,6 +96,11 @@
         .addEventListener("click", function () {
           // Get form data
           var formData = new FormData(document.getElementById("loginForm"));
+          var messageBox = document.getElementById("messageBox");
+
+          // Clear previous messages
+          messageBox.innerText = "Logging in...";
+          messageBox.style.color = "gray";
 
           // Make AJAX request
           var xhr = new XMLHttpRequest();
@@ -99,15 +108,26 @@
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
               if (xhr.status == 200) {
-                // Response from server
-                alert(xhr.responseText);
-                if (xhr.responseText.trim() === "Login successful") {
-                  // Redirect after successful login
+                
+                var response = xhr.responseText.trim();
+                
+                // Set the text of the message box to the response
+                messageBox.innerText = response;
+
+                if (response === "Login successful") {
+                  // Success Style
+                  messageBox.style.color = "green";
+                  // Redirect
                   window.location.href = "functions/choose_request.php";
+                } else {
+                  // Error Style
+                  messageBox.style.color = "red";
                 }
+
               } else {
                 // Error handling for AJAX request
-                alert("Error: Unable to process your request.");
+                messageBox.innerText = "Error: Unable to process your request.";
+                messageBox.style.color = "red";
               }
             }
           };
