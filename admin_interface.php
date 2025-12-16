@@ -23,7 +23,7 @@
                 National Shrine of St. Michael and the Archangels
             </h1>
             <img class="portrait-image" src="image/background.jpg" alt="Portrait Image">
-            <button class="button pamisa-button" id="onlineMassPendingButton">Check Online Mass Pendings</button>
+            <button class="button pamisa-button" id="onlineMassPendingButton">Check Request for Pamisa</button>
             <button class="button logout-button" id="historyButton">Check Records</button>
             <button class="button logout-button" id="pictureButton">Upload Pictures</button>
             <button class="button logout-button" id="logoutButton">Logout</button>
@@ -48,7 +48,7 @@
         </div>
        <div class="container">
         <div class="content-box">
-            <h1 class="welcome">Welcome, <?php echo $_SESSION['admin_username']; ?>! <br> Kumpil</h1>
+            <h1 class="welcome">Welcome, <?php echo $_SESSION['admin_username']; ?>! <br> Confirmation</h1>
 
             <!-- Display pending requests in a table -->
             <?php
@@ -64,8 +64,8 @@
             if ($result->num_rows > 0) {
                 // Display the pending requests in a table
                 echo "<p>Pending Requests for Kumpil:</p>";
-                echo "<table>";
-                echo "<tr><th>User Full Name</th><th>Email</th><th>Purpose</th><th>Date of Service</th><th>Age</th><th>Contact Number</th><th>Father's Name</th><th>Mother's Maiden Name</th><th>First Sponsor's Name</th><th>Second Sponsor's Name</th><th>Receipt</th><th>Action</th></tr>";
+                echo "<table class='pending-requests-table'>";
+                echo "<tr><th>Full Name</th><th>Email</th><th>Purpose</th><th>Date of Service</th><th>Age</th><th>Contact Number</th><th>Father's Name</th><th>Mother's Maiden Name</th><th>First Sponsor's Name</th><th>Second Sponsor's Name</th><th>Receipt</th><th>Action</th></tr>";
                 while ($row = $result->fetch_assoc()) {
                     // Format the date to "Month Day, Year"
                     $formatted_date = date("F j, Y", strtotime($row['date_column']));
@@ -83,8 +83,10 @@
                     // Button to show receipt image in a modal
                     echo "<td><button onclick='openModal(\"g_cash_receipts/" . htmlspecialchars($row['receipt_code']) . "_" . htmlspecialchars($row['receipt']) . "\")' type='button'>Show Receipt</button></td>";
                     // Buttons for approving and declining
-                    echo "<td><button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"approve\", this)' class='approveButton'>Approve</button>";
-                    echo "<button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"decline\", this)' class='declineButton'>Decline</button></td>";
+                    echo "<td>";
+                    echo "<button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"approve\", this)' class='approveButton' style='display: block; margin: 0 auto 5px auto; width: 80px;'>Approve</button>";
+                    echo "<button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"decline\", this)' class='declineButton' style='display: block; margin: 0 auto; width: 80px;'>Decline</button>";
+                    echo "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";

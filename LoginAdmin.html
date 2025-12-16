@@ -13,8 +13,31 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <style>
+      /* Style for the Back Arrow Button */
+      .back-arrow {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        color: #fff; /* White color to stand out against background */
+        text-decoration: none;
+        z-index: 1000; /* Ensures it sits on top of everything */
+        transition: transform 0.2s;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Adds shadow for better visibility */
+      }
+
+      .back-arrow:hover {
+        transform: scale(1.1); /* Slight zoom effect on hover */
+        color: #e0e0e0;
+      }
+    </style>
   </head>
   <body>
+    <a href="index.php" class="back-arrow">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+
     <div class="main-container">
       <div class="left-side">
         <h1 class="title">

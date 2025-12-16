@@ -22,7 +22,7 @@ if (!isset($_SESSION['admin_username'])) {
             National Shrine of St. Michael and the Archangels
         </h1>
         <img class="portrait-image" src="image/background.jpg" alt="Portrait Image">
-        <button class="button pamisa-button" id="onlineMassPendingButton">Check Request for Kumpil Pendings</button>
+        <button class="button pamisa-button" id="onlineMassPendingButton">Check Request for Kumpil</button>
         <button class="button logout-button" id="historyButton2">Check Records</button>      
         <button class="button logout-button" id="pictureButton">Upload Pictures</button> 
         <button class="button logout-button" id="logoutButton">Logout</button>
@@ -45,7 +45,7 @@ if (!isset($_SESSION['admin_username'])) {
         if ($result->num_rows > 0) {
             // Display the pending requests in a table
             echo "<p>Pending Requests for Online Pamisa:</p>";
-            echo "<table>";
+            echo "<table class='pending-requests-table'>";
             echo "<tr><th>Email</th><th>Full Name</th><th>Purpose</th><th>Sponsor</th><th>Date</th><th>Receipt</th><th>Action</th></tr>";
             while ($row = $result->fetch_assoc()) {
                 // Format the date
@@ -60,8 +60,13 @@ if (!isset($_SESSION['admin_username'])) {
                 // Button to show receipt image in a modal
                 echo "<td><button onclick='openModal(\"g_cash_receipts/" . htmlspecialchars($row['receipt_code']) . "_" . htmlspecialchars($row['receipt']) . "\")' type='button'>Show Receipt</button></td>";
                 // Buttons for approving and declining
-                echo "<td><button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"approve\", this)' class='approveButton'>Approve</button>";
-                echo "<button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"decline\", this)' class='declineButton'>Decline</button></td>";
+                // Buttons for approving and declining (Stacked Vertically)
+                echo "<td>";
+                // Added 'display: block' and 'margin: 0 auto' to center and stack them
+                // Added 'margin-bottom: 5px' to put a small gap between the buttons
+                echo "<button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"approve\", this)' class='approveButton' style='display: block; margin: 0 auto 5px auto; width: 80px;'>Approve</button>";
+                echo "<button type='button' onclick='submitForm(" . htmlspecialchars($row['id']) . ", \"decline\", this)' class='declineButton' style='display: block; margin: 0 auto; width: 80px;'>Decline</button>";
+                echo "</td>";             
                 echo "</tr>";
             }
             echo "</table>";

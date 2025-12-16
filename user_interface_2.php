@@ -48,7 +48,7 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
             </form>
             <form action="user_interface.php" method="get">
                 <button type="submit" class="nav-btn primary-btn">
-                    <i class="fa fa-file-text-o"></i> Confirmation Request Form
+                    <i class="fa fa-file-text-o"></i> Request for Confirmation
                 </button>
             </form>
         </div>
@@ -129,10 +129,13 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
         // Adjust the current date by adding the UTC offset
         var philippinesDate = new Date(currentDate.getTime() + (utcOffset * 60 * 60 * 1000));
         
+        // --- NEW STEP: Add 1 day to make today unclickable ---
+        philippinesDate.setDate(philippinesDate.getDate() + 1);
+        
         // Format the date as YYYY-MM-DD
         var formattedDate = philippinesDate.toISOString().split('T')[0];
         
-        // Set the min attribute of the date input to the adjusted date
+        // Set the min attribute of the date input to the adjusted date (tomorrow)
         document.getElementById("chosen_date").setAttribute("min", formattedDate);
     });
 </script>

@@ -1,101 +1,243 @@
+/* =========================================
+   1. BASE RESET & LAYOUT
+   ========================================= */
 body {
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
 }
 
 .title {
   font-size: 25px;
   text-align: center;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
 }
 
+/* =========================================
+   2. SIDEBAR (FIXED LEFT)
+   ========================================= */
 .fixed-container {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 200px;
-  padding: 10px;
-  border-left: 4px solid #333;
-  background-color: #f5f5f5;
+  width: 220px;
+  padding: 15px;
+  border-right: 1px solid #ccc;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-}
-
-button {
-  background-image: linear-gradient(150deg, #b621fe, #1fd1f9);
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 20px;
-}
-
-button:hover {
-  background-color: #e60000;
-}
-
-button:active {
-  opacity: 0.5;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  z-index: 100;
 }
 
 .portrait-image {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.content-box {
-  margin-left: 220px;
-  padding: 20px;
-  border: 2px solid #ccc;
-  background-color: #ffffff;
-  min-height: 100vh;
+/* Sidebar Buttons */
+button {
+  background-image: linear-gradient(150deg, #b621fe, #1fd1f9);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active {
+  opacity: 0.7;
+  transform: translateY(0);
+}
+
+.fixed-container button {
+  width: 100%;
   text-align: center;
+}
+
+/* =========================================
+   3. MAIN CONTENT AREA
+   ========================================= */
+.content-box {
+  margin-left: 250px; 
+  padding: 40px;
+  background-color: #f0f2f5; 
+  min-height: 100vh;
 }
 
 h1.welcome {
-  background: linear-gradient(to top, #e0ffff, #4682b4);
-  border: 1px solid #ccc;
-  padding: 65px;
-  border-radius: 8px;
+  background: linear-gradient(to right, #4682b4, #e0ffff); 
+  color: #000000;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  border: none;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+  text-align: center;
 }
 
-/* Modal styles */
+/* =========================================
+   4. DATA TABLE (GRID STYLE)
+   ========================================= */
+.pending-requests-table {
+  width: 100%;
+  border-collapse: collapse; /* This ensures lines touch each other */
+  background-color: #ffffff;
+  border: 1px solid #bdc3c7; /* Outer Border */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  margin-top: 20px;
+}
+
+/* Grid Borders for Header and Cells */
+.pending-requests-table th, 
+.pending-requests-table td {
+  border: 1px solid #bdc3c7; /* This adds the visible grid lines you asked for */
+  padding: 12px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.pending-requests-table th {
+  background-color: #329bad; /* Teal Header */
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.pending-requests-table td {
+  color: #333;
+  font-size: 14px;
+}
+
+/* Zebra Striping */
+.pending-requests-table tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover Effect */
+.pending-requests-table tr:hover {
+  background-color: #e3f2fd; /* Light blue highlight on hover */
+}
+
+/* =========================================
+   5. ACTION BUTTONS 
+   ========================================= */
+.approveButton {
+  background-image: linear-gradient(150deg, #28a745, #85e085); /* Green */
+  margin-right: 5px; 
+  margin-top: 0;
+}
+
+.approveButton:hover {
+  background-image: none;
+  background-color: #218838;
+}
+
+.declineButton {
+  background-image: linear-gradient(150deg, #dc3545, #ff6b6b); /* Red */
+  margin-top: 0;
+}
+
+.declineButton:hover {
+  background-image: none;
+  background-color: #c82333;
+}
+
+/* Specific fix for buttons inside table cells */
+.pending-requests-table td button {
+    margin-top: 0; 
+    font-size: 12px;
+    padding: 8px 12px;
+    display: inline-block;
+}
+
+/* =========================================
+   6. MODAL (NO CROPPING)
+   ========================================= */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0;
+  display: none; 
+  position: fixed; 
+  z-index: 2000; 
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden; 
+  background-color: rgba(0, 0, 0, 0.92); 
 }
 
 .modal-content {
-  margin: 15% auto;
-  padding: 20px;
-  background-color: white;
-  width: 80%;
-  max-width: 600px;
-  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  width: auto;
+  max-width: 95%; 
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+#receiptImage {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  max-height: 90vh; 
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 4px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .close {
   position: absolute;
   top: 20px;
   right: 35px;
-  color: white;
+  color: #fff;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+  z-index: 2001;
+  transition: transform 0.2s;
 }
 
-.pending-requests-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px; /* Add spacing above the table */
+.close:hover {
+  color: #ddd;
+  transform: scale(1.1);
+}
+
+/* Animation */
+.modal-content, #receiptImage {  
+  animation-name: zoom;
+  animation-duration: 0.3s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0.8); opacity: 0;} 
+  to {transform:scale(1); opacity: 1;}
 }

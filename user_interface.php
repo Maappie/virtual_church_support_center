@@ -35,12 +35,12 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
         <h2>Welcome</h2>
         <p>Requirements:</p>
         <ul>
-            <li>Recently issued two (2) copies of Baptismal Certificates within six (6) months <br> <small>(Bring on the day of requested date)</small> </li>
+            <li>Recently issued two (2) copies of Baptismal Certificates within six (6) months</small> </li>
             <li>First communion done</li>
             <li>Fully accomplished registration form</li>
             <li>Send love offering via Gcash</li>
         </ul>
-        <p><strong>FOR AGES 12-21 YEARS OLD WHO ARE NOT RESIDING IN THE PHILIPPINES ADDITIONAL (Bring on the day of requested date):</strong></p>
+        <p><strong>FOR AGES 12-21 YEARS OLD WHO ARE NOT RESIDING IN THE PHILIPPINES ADDITIONAL:</strong></p>
         <ul>
             <li>Permission letter from the current parish priest</li>
             <li>Certificate of attendance for catechism</li>
@@ -67,7 +67,6 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
             <hr>
         </div>
 
-        <!-- Main form -->
         <form id="userDataForm" action="user_data/process_data.php" method="post" enctype="multipart/form-data" class="data-form">
             <div class="form-group">
                 <label for="full_name">Full Name:</label>
@@ -120,7 +119,6 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
             <button id="submitButton" type="submit" class="logout-button">Submit</button>
         </form>
 
-        <!-- Logout button -->
         <form action="functions/logout.php" method="post">
             <button type="submit" class="logout-button">Logout</button>
         </form>
@@ -145,44 +143,65 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Get today's date
+        var dateInput = document.getElementById("chosen_date");
         var today = new Date();
-        // Calculate the date after seven days
-        var sevenDaysLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-        // Calculate the next Sunday after seven days
-        var nextSunday = new Date(sevenDaysLater);
-        nextSunday.setDate(sevenDaysLater.getDate() + (7 - nextSunday.getDay()));
         
-        // Set the minimum date to be seven days later
-        var minDate = sevenDaysLater.toISOString().split("T")[0];
-        document.getElementById("chosen_date").min = minDate;
+        // 1. Calculate the minimum allowed date (7 days from today)
+        var sevenDaysLater = new Date(today);
+        sevenDaysLater.setDate(today.getDate() + 7);
 
-        // Function to check if a given date is Sunday
+        // 2. Find the FIRST Sunday that occurs on or after "sevenDaysLater"
+        //    (Logic: If sevenDaysLater is Sunday(0), add 0. If Monday(1), add 6, etc.)
+        var daysUntilNextSunday = (7 - sevenDaysLater.getDay()) % 7;
+        var nextAvailableSunday = new Date(sevenDaysLater);
+        nextAvailableSunday.setDate(sevenDaysLater.getDate() + daysUntilNextSunday);
+
+        // 3. Convert to YYYY-MM-DD format
+        var minDate = nextAvailableSunday.toISOString().split("T")[0];
+
+        // 4. Set attributes to restrict selection
+        dateInput.min = minDate;
+        dateInput.step = 7; // This suggests to the browser to only step by 7 days (Sundays)
+        dateInput.value = minDate; // Set default value to the first valid Sunday
+
+        // 5. Validation Function: Strictly enforce Sunday selection
         function isSunday(date) {
             return date.getDay() === 0; // 0 represents Sunday
         }
 
-        // Function to set the selected date to the next Sunday
-        function setToNextSunday(input) {
+        function validateSunday(input) {
+            if (!input.value) return; // Allow empty if user is clearing it
+            
             var selectedDate = new Date(input.value);
-            // Check if the selected date is Sunday, if not, clear and set it to the next Sunday
+            
+            // Check if Sunday
             if (!isSunday(selectedDate)) {
                 alert("Please choose a Sunday.");
-                input.value = "";
+                input.value = ""; // Clear invalid input
+                return;
+            }
+
+            // Check if it respects the 7-day rule (Double check in case manual entry)
+            // Reset the time part to ensure accurate comparison
+            var minDateObj = new Date(minDate);
+            // We compare timestamps to handle potential timezone quirks
+            if (selectedDate < minDateObj) {
+                alert("Date must be at least 7 days from now.");
+                input.value = ""; 
             }
         }
 
-        // Add event listener to the chosen_date input to enforce Sunday selection
-        document.getElementById("chosen_date").addEventListener("change", function () {
-            setToNextSunday(this);
+        // Add event listener to check whenever the user changes the date
+        dateInput.addEventListener("change", function () {
+            validateSunday(this);
         });
-
-        // Set the initial value of the chosen date input to the next Sunday
-        document.getElementById("chosen_date").value = nextSunday.toISOString().split("T")[0];
+        
+        // Also run validation on input (covers typing in some browsers)
+        dateInput.addEventListener("input", function () {
+            validateSunday(this);
+        });
     });
 </script>
 
 </body>
 </html>
-
-
