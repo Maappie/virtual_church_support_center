@@ -59,7 +59,11 @@
             />
             <span class="show"><i class="fa-solid fa-eye-slash"></i></span>
           </div>
+          
           <button type="submit" id="adminLoginButton">Sign In</button>
+          
+          <div id="messageBox" style="margin-top: 10px; text-align: center; font-weight: bold; min-height: 20px;"></div>
+
           <div class="form-element">
             <a href="forgot_password_forAdmin.php">Forgot password?</a>
           </div>
@@ -99,6 +103,11 @@
 
           // Get form data
           var formData = new FormData(this);
+          var messageBox = document.getElementById("messageBox");
+
+          // Clear previous messages and show loading state
+          messageBox.innerText = "Verifying...";
+          messageBox.style.color = "gray";
 
           // Create and send AJAX request
           var xhr = new XMLHttpRequest();
@@ -106,16 +115,25 @@
           xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {
-                if (xhr.responseText === "success") {
+                
+                var response = xhr.responseText.trim();
+
+                if (response === "success") {
+                  // Success Message
+                  messageBox.innerText = "Login successful! Redirecting...";
+                  messageBox.style.color = "green";
+                  
                   // Redirect to admin panel or dashboard
                   window.location.href = "admin_interface.php";
                 } else {
-                  // Display error message
-                  alert(xhr.responseText);
+                  // Error Message from PHP (e.g., "Invalid password")
+                  messageBox.innerText = response;
+                  messageBox.style.color = "red";
                 }
               } else {
                 // Display error message for HTTP request
-                alert("Error: Unable to process your request.");
+                messageBox.innerText = "Error: Unable to process your request.";
+                messageBox.style.color = "red";
               }
             }
           };
