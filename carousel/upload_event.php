@@ -1,12 +1,10 @@
 <?php 
-    session_start(); // Start session
-    // Check if admin is logged in
+    session_start(); 
     if (!isset($_SESSION['admin_username'])) {
-        // Redirect to login page if not logged in
-        header("Location: ../index.php"); // Adjust the path accordingly
+        header("Location: ../index.php"); 
         exit();   
     }
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +32,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 350px; /* Made slightly wider for the new buttons */
             position: relative;
         }
 
@@ -57,21 +55,12 @@
         }
 
         .back-button a:hover {
-            background-image: linear-gradient(-150deg, #B621fe, #1fd1f9);
             opacity: 0.7;
-        }
-
-        .back-button a:active {
-            opacity: 0.5;
         }
 
         h1 {
             text-align: center;
             margin: 20px 0;
-        }
-
-        form {
-            display: block;
         }
 
         label {
@@ -80,18 +69,43 @@
             font-weight: bold;
         }
 
+        /* Container for Input + Button */
+        .input-group {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
         .input-box {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 15px;
             background-color: #fafafa;
+            flex-grow: 1; /* Takes up remaining space */
         }
 
         input[type="file"] {
             width: 100%;
             border: none;
             background: none;
+            font-size: 12px;
+        }
+
+        /* New Default Button Style */
+        .default-btn {
+            background-color: #ff9800; /* Orange color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .default-btn:hover {
+            background-color: #e68900;
         }
 
         input[type="submit"] {
@@ -104,20 +118,17 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s, opacity 0.3s;
+            transition: opacity 0.3s;
         }
 
         input[type="submit"]:hover {
-            background-image: linear-gradient(-150deg, #B621fe, #1fd1f9);
             opacity: 0.7;
-        }
-
-        input[type="submit"]:active {
-            opacity: 0.5;
         }
 
         #response {
             margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -129,29 +140,45 @@
         </div>
         <h1>Upload Images</h1>
         <form id="uploadForm" onsubmit="uploadFiles(event)" enctype="multipart/form-data">
-            <label for="fileToUpload1">Upload File 1:</label>
-            <div class="input-box">
-                <input type="file" name="fileToUpload1" id="fileToUpload1" accept=".jpg, .jpeg, .png">
+            
+            <label for="fileToUpload1">Carousel 1:</label>
+            <div class="input-group">
+                <div class="input-box">
+                    <input type="file" name="fileToUpload1" id="fileToUpload1" accept=".jpg, .jpeg, .png">
+                </div>
+                <button type="button" class="default-btn" onclick="setDefault(1)">Set Default</button>
             </div>
 
-            <label for="fileToUpload2">Upload File 2:</label>
-            <div class="input-box">
-                <input type="file" name="fileToUpload2" id="fileToUpload2" accept=".jpg, .jpeg, .png">
+            <label for="fileToUpload2">Carousel 2:</label>
+            <div class="input-group">
+                <div class="input-box">
+                    <input type="file" name="fileToUpload2" id="fileToUpload2" accept=".jpg, .jpeg, .png">
+                </div>
+                <button type="button" class="default-btn" onclick="setDefault(2)">Set Default</button>
             </div>
 
-            <label for="fileToUpload3">Upload File 3:</label>
-            <div class="input-box">
-                <input type="file" name="fileToUpload3" id="fileToUpload3" accept=".jpg, .jpeg, .png">
+            <label for="fileToUpload3">Carousel 3:</label>
+            <div class="input-group">
+                <div class="input-box">
+                    <input type="file" name="fileToUpload3" id="fileToUpload3" accept=".jpg, .jpeg, .png">
+                </div>
+                <button type="button" class="default-btn" onclick="setDefault(3)">Set Default</button>
             </div>
 
-            <label for="fileToUpload4">Upload File 4:</label>
-            <div class="input-box">
-                <input type="file" name="fileToUpload4" id="fileToUpload4" accept=".jpg, .jpeg, .png">
+            <label for="fileToUpload4">Carousel 4:</label>
+            <div class="input-group">
+                <div class="input-box">
+                    <input type="file" name="fileToUpload4" id="fileToUpload4" accept=".jpg, .jpeg, .png">
+                </div>
+                <button type="button" class="default-btn" onclick="setDefault(4)">Set Default</button>
             </div>
 
-            <label for="fileToUpload5">Upload File 5:</label>
-            <div class="input-box">
-                <input type="file" name="fileToUpload5" id="fileToUpload5" accept=".jpg, .jpeg, .png">
+            <label for="fileToUpload5">Carousel 5:</label>
+            <div class="input-group">
+                <div class="input-box">
+                    <input type="file" name="fileToUpload5" id="fileToUpload5" accept=".jpg, .jpeg, .png">
+                </div>
+                <button type="button" class="default-btn" onclick="setDefault(5)">Set Default</button>
             </div>
 
             <input type="submit" value="Upload Files" name="submit">
@@ -159,23 +186,21 @@
         <div id="response"></div>
     </div>
 </body>
+
 <script>
+// Function 1: Upload Files
 function uploadFiles(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Allowed file extensions
+    event.preventDefault();
     var allowedExtensions = ['jpg', 'jpeg', 'png'];
-
-    // Create a new FormData object
     var formData = new FormData();
+    var hasFiles = false;
 
-    // Append each file to the FormData object and check the file extension
     for (var i = 1; i <= 5; i++) {
         var fileInput = document.getElementById('fileToUpload' + i);
         if (fileInput.files.length > 0) {
+            hasFiles = true;
             var file = fileInput.files[0];
             var fileExtension = file.name.split('.').pop().toLowerCase();
-
             if (allowedExtensions.includes(fileExtension)) {
                 formData.append('fileToUpload' + i, file);
             } else {
@@ -185,23 +210,40 @@ function uploadFiles(event) {
         }
     }
 
-    // Create a new XMLHttpRequest object
-    var xhr = new XMLHttpRequest();
+    if (!hasFiles) {
+        alert("Please select a file to upload.");
+        return;
+    }
 
-    // Define the function to be executed when the request receives an answer
+    var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            // Display the response message in an alert
             alert(xhr.responseText);
-            // Reload the page after the alert is closed
             location.reload();
         }
     };
-
-    // Open a connection to the server
     xhr.open('POST', 'handle_event.php', true);
+    xhr.send(formData);
+}
 
-    // Send the request
+// Function 2: Set to Default
+function setDefault(id) {
+    if(!confirm("Are you sure you want to reset Carousel " + id + " to the default image?")) {
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('action', 'setDefault');
+    formData.append('id', id);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            alert(xhr.responseText);
+            location.reload();
+        }
+    };
+    xhr.open('POST', 'handle_event.php', true);
     xhr.send(formData);
 }
 </script>
