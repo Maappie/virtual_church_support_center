@@ -52,6 +52,7 @@
 
 .logout-button {
   background-color: #329bad; /* Blue background color */
+  margin-top: 5px;
   color: white; /* White text color */
   padding: 10px 20px; /* Add some padding */
   border: none; /* Remove border */
@@ -380,4 +381,72 @@ button[type="button"]:disabled:hover {
 
 .logout-button:hover {
   background-color: #307ebe;
+}
+
+/* Container to align buttons side-by-side */
+.top-nav-buttons {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+  justify-content: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap; /* Allows them to stack on mobile */
+}
+
+/* Remove default form margin so they sit next to each other */
+.top-nav-buttons form {
+  margin: 0;
+}
+
+/* Base Style for Top Navigation Buttons */
+.nav-btn {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px; /* Softer rounded corners */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for "Confirmation Request" (Primary Action) */
+.primary-btn {
+  background-color: #329bad;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: #267a8c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(50, 155, 173, 0.3);
+}
+
+/* Style for "Check History" (Secondary Action) */
+.secondary-btn {
+  background-color: #ffffff;
+  color: #329bad;
+  border: 2px solid #329bad;
+}
+
+.secondary-btn:hover {
+  background-color: #f0f8ff;
+  color: #267a8c;
+  border-color: #267a8c;
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .top-nav-buttons {
+    flex-direction: column;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

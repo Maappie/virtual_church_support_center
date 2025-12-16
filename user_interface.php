@@ -35,12 +35,12 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
         <h2>Welcome</h2>
         <p>Requirements:</p>
         <ul>
-            <li>Recently issued two (2) copies of Baptismal Certificates within six (6) months</li>
+            <li>Recently issued two (2) copies of Baptismal Certificates within six (6) months <br> <small>(Bring on the day of requested date)</small> </li>
             <li>First communion done</li>
             <li>Fully accomplished registration form</li>
             <li>Send love offering via Gcash</li>
         </ul>
-        <p>FOR AGES 12-21 YEARS OLD WHO ARE NOT RESIDING IN THE PHILIPPINES ADDITIONAL:</p>
+        <p><strong>FOR AGES 12-21 YEARS OLD WHO ARE NOT RESIDING IN THE PHILIPPINES ADDITIONAL (Bring on the day of requested date):</strong></p>
         <ul>
             <li>Permission letter from the current parish priest</li>
             <li>Certificate of attendance for catechism</li>
@@ -49,16 +49,23 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
     </section>
 
     <section class="form-section">
-    <div class="confirmation">
-    <form action="user_interface_history.php" method="get">
-            <button type="submit" class="logout-button">Check Request History</button>
-        </form> 
-    <form action="user_interface_2.php" method="get">
-            <button type="submit" class="logout-button">Request for Online Pamisa</button>
-        </form> <h2>Confirmation Request Form</h2>
-       
-    <hr>
-</div>
+        <div class="confirmation">
+            <div class="top-nav-buttons">
+                <form action="user_interface_history.php" method="get">
+                    <button type="submit" class="nav-btn secondary-btn">
+                        <i class="fa fa-history"></i> Check Request History
+                    </button>
+                </form> 
+                <form action="user_interface_2.php" method="get">
+                    <button type="submit" class="nav-btn primary-btn">
+                        <i class="fa fa-globe"></i> Request for Online Pamisa
+                    </button>
+                </form>
+            </div>
+
+            <h2>Confirmation Request Form</h2>
+            <hr>
+        </div>
 
         <!-- Main form -->
         <form id="userDataForm" action="user_data/process_data.php" method="post" enctype="multipart/form-data" class="data-form">

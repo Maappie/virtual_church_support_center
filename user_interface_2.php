@@ -40,12 +40,19 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_id'])) {
     </section>
 
     <section class="form-section">
-    <form action="user_interface_history_2.php" method="get">
-            <button type="submit" class="logout-button">Check Request History</button>
-        </form>
-        <form action="user_interface.php" method="get">
-            <button type="submit" class="logout-button">Request for Online Pamisa</button>
-        </form>
+        <div class="top-nav-buttons">
+            <form action="user_interface_history_2.php" method="get">
+                <button type="submit" class="nav-btn secondary-btn">
+                    <i class="fa fa-history"></i> Check Request History
+                </button>
+            </form>
+            <form action="user_interface.php" method="get">
+                <button type="submit" class="nav-btn primary-btn">
+                    <i class="fa fa-file-text-o"></i> Confirmation Request Form
+                </button>
+            </form>
+        </div>
+
         <div class="online_pamisa">
             <h2>Online Pamisa Request Form</h2>
             <hr>
